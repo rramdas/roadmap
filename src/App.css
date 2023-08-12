@@ -1,38 +1,247 @@
+
+body {
+  background-color: black;
+  margin: 0;
+  font-family: 'Roboto', sans-serif, Arial, Helvetica, sans-serif;
+  color: white; /* This ensures text is readable on the black background */
+}
+
 .App {
-  text-align: center;
+  background-color: black;
+  color: white;
+  font-family: 'Roboto', sans-serif;
+  padding-left: 80px;  /* Add left padding */
+  padding-right: 80px; /* Add right padding */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
+h1 {
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
+.hero-section {
+  background-color: black;
+  padding: 20px;
+  text-align: center;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+button {
+  padding: 10px 20px;
+  background-color: #007BFF;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.roadmap-section {
+  margin: 20px;
+  padding: 20px;
+  /* border: 1px solid #e0e0e0; */
+}
+
+.roadmap-section h2 {
+  /* border-bottom: 2px solid #007BFF; */
+  padding-bottom: 10px;
+}
+
+.roadmap-section ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.roadmap-section li {
+  margin-bottom: 20px;
+}
+
+
+.feature-section {
+  display: flex;
+  align-items: flex-start; /* Aligns children at their tops */
+}
+
+.feature-icon {
+  margin-right: 10px; /* Adds some space between the icon and the title */
+}
+
+
+.feature-icon-completed {
+  fill: green;
+}
+
+.feature-icon-in-progress {
+  fill: #FFFF33;
+}
+
+.feature-icon-coming-next {
+  fill: blue;
+}
+
+
+.feature-content h3 {
+  margin: 0; /* remove default margin */
+}
+
+.feature-epic {
+  font-style: italic;
+  color: white;
+}
+
+.in-progress-label {
+  background-color: purple; /* Contrastive color */
+  color: white; /* Text color for good readability */
+  padding: 2px 5px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  margin-bottom: 5px; /* Space between label and title */
+  display: inline-block;
+}
+
+/* This is the circle that will be animated */
+.inner-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: white;
+  margin-right: 10px;
+}
+
+/* This is the animation */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
   }
-  to {
-    transform: rotate(360deg);
+  50% {
+    transform: scale(1.2);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.feature-section:hover .inner-circle {
+  animation: pulse 0.6s infinite;
+  box-shadow: 0 0 5px 5px rgba(currentColor, 0.4);
+}
+
+.epic-tooltip {
+  display: none;
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 1px;
+  border-radius: 3px;
+  font-size: 0.8em;
+  white-space: nowrap;
+  z-index: 1;
+}
+
+.feature-icon:hover .epic-tooltip {
+  display: block;
+}
+
+.epic-progress {
+  margin-top: 40px;
+  margin-left: 3%;
+  /* margin-right: 30%; */
+}
+
+.progress-bar {
+  width: 100%;
+  height: 20px;
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative; /* Added for absolute positioning of the slider */
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #0f0;
+  transition: width 0.3s;
+}
+
+
+input[type="range"] {
+  width: 100%;
+  margin: 10px 0;
+  opacity: 0; /* Hidden by default */
+  transition: opacity 0.3s; /* Smooth transition */
+  position: absolute; /* Position it over the progress bar */
+  bottom: -10px; /* Adjust as needed */
+  left: 0;
+}
+
+.progress-bar:hover input[type="range"] {
+  opacity: 1; /* Show when hovering over the progress bar */
+}
+
+.epic-progress-item {
+  margin-bottom: 20px;
+}
+
+.columns-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.status-column {
+  flex: 1;
+  padding: 10px;
+  /* border: 1solid #e0e0e0; */
+  box-sizing: border-box;
+}
+
+.feature-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 100%;
+  /* border: 1px ; */
+}
+
+.product-roadmap-title {
+  font-family: 'Bungee', cursive;
+  font-size: 4em;
+  background: linear-gradient(90deg, #f06, #9f6);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.product-roadmap-title::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0%;
+  bottom: 0;
+  left: 0%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.5),
+    transparent
+  );
+  transform: skewX(-30deg);
+  pointer-events: none; /* Ensures the shimmer doesn't interfere with any interactions */
+  animation: shimmer 10s infinite 30s; /* Shimmer effect every 30 seconds */
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(200%);
   }
 }
