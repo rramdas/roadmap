@@ -34,7 +34,7 @@ const ColumnHeader = styled.h3`
 function FeatureColumn({ status, features, onDrop }) {
 
   const [{ isOver }, drop] = useDrop({
-    accept: 'CARD',
+    accept: 'FEATURE',
     drop: (item) => onDrop(item.id, status),
     collect: (monitor) => ({
       isOver: !!monitor.isOver(),
@@ -42,15 +42,14 @@ function FeatureColumn({ status, features, onDrop }) {
   });
 
   return (
+
     <div ref={drop} style={{ backgroundColor: isOver ? 'lightgray' : 'white' }}>
-
-    <ColumnContainer ref={drop}>
-      <ColumnHeader>{status}</ColumnHeader>
-      { features.filter(feature => feature.status === status).map((feature, index) => (
-        <FeatureCard key={index} name={feature.name} description={feature.description} epic={feature.epic} />
-      ))}
-
-    </ColumnContainer>
+      <ColumnContainer ref={drop}>
+        <ColumnHeader>{status}</ColumnHeader>
+          {features.filter(feature => feature.status === status).map((feature, index) => (
+            <FeatureCard feature={feature} />
+             ))}
+        </ColumnContainer>
     </div>
   );
 }

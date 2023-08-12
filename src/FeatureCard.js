@@ -43,11 +43,11 @@ const CardFooter = styled.div`
 `;
 
 
-function FeatureCard({ id, name, description, epic }) {
+function FeatureCard({ feature }) {
 
     const [{ isDragging }, drag] = useDrag({
-        type: 'CARD',
-        item: { id: id },
+        type: 'FEATURE',
+        item: { id: feature.id },
         collect: (monitor) => ({
         isDragging: !!monitor.isDragging(),
     }),
@@ -56,9 +56,9 @@ function FeatureCard({ id, name, description, epic }) {
 return (
     <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <Card>
-        <CardTitle>{name}</CardTitle>
-        <CardDescription>{description}</CardDescription>
-        <CardFooter><span>{epic}</span></CardFooter>
+        <CardTitle>{feature.name}</CardTitle>
+        <CardDescription>{feature.description}</CardDescription>
+        <CardFooter><span>{feature.epic}</span></CardFooter>
       </Card>
       </div>
     );
