@@ -19,9 +19,10 @@ const Card = styled.div`
 
 const CardTitle = styled.h3`
   margin-top: 0;
-  color: #0f0;
-  font-size: 1.5em;
-  text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #ff00ff, 0 0 20px #ff00ff, 0 0 25px #ff00ff, 0 0 30px #ff00ff, 0 0 35px #ff00ff;
+  color: #fff;
+  font-size: 1em;
+//   text-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #ff00ff, 0 0 20px #ff00ff, 0 0 25px #ff00ff, 0 0 30px #ff00ff, 0 0 35px #ff00ff;
+  z-index: 1;  // Ensure the text is above the glow effect
 `;
 
 const CardDescription = styled.p`
@@ -56,7 +57,7 @@ function FeatureCard({ feature }) {
 return (
     <div ref={drag} style={{ opacity: isDragging ? 0.5 : 1 }}>
       <Card>
-        <CardTitle>{feature.name}</CardTitle>
+        <CardTitle>{feature.title}</CardTitle>
         <CardDescription>{feature.description}</CardDescription>
         <CardFooter><span>{feature.epic}</span></CardFooter>
       </Card>

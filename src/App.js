@@ -2,15 +2,14 @@ import React, { useState, useEffect } from 'react';
 import './App.css';
 import HeroSection from './Hero';
 import EpicProgress from './EpicProgress';
-// import RoadmapSection from './RoadmapSection';
 import NewFeature from './NewFeature';
 import Airtable from 'airtable';
-import saveFeatureToAirtable  from './airtableUtils.js';
 import Modal from './Modal';
 import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import FeatureColumn from './FeatureColumn';
-
+import { updateFeatureInAirtable } from './airtableUtils.js';
+import saveFeatureToAirtable  from './airtableUtils.js';
 
 
 const base = new Airtable({ apiKey: 'patXoKE30cfdzGyiY.cd7f900e821b989121d5ae3b697382588064a8330798745c8a406eb98e45c305' }).base('app86LcWij0hDTXST');
@@ -70,6 +69,7 @@ function App() {
     setFeatures(updatedFeatures);
 
     // Update Airtable here. If there's an error, show the snackbar and retry.
+    updateFeatureInAirtable(featureId, newStatus)
   };
 
   const handleSaveFeature = async (feature) => {
