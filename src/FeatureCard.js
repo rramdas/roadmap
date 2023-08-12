@@ -3,9 +3,11 @@ import { useDrag } from 'react-dnd';
 
 
 const Card = styled.div`
+  width: 90%;
+  max-width: 300px;
+  margin: 0 auto;
   background-color: #1e1e1e;
   padding: 20px;
-  margin: 30px 0;
   border-radius: 10px;
   transition: transform 0.3s ease, border 0.3s ease, box-shadow 0.3s ease;
   border: 1px solid transparent;  // Transparent border to keep layout consistent
@@ -14,6 +16,10 @@ const Card = styled.div`
     transform: scale(1.05);
     border: 1px solid #0f0;
     box-shadow: 0 0 5px #0f0, 0 0 10px #0f0, 0 0 15px #ff00ff, 0 0 20px #ff00ff, 0 0 25px #ff00ff, 0 0 30px #ff00ff, 0 0 35px #ff00ff;
+  }
+
+  @media (min-width: 768px) {
+    width: 300px;  
   }
 `;
 

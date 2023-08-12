@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+import TopBar from './TopBar';
+
 import HeroSection from './Hero';
 import EpicProgress from './EpicProgress';
 import NewFeature from './NewFeature';
@@ -10,6 +12,9 @@ import { HTML5Backend } from 'react-dnd-html5-backend';
 import FeatureColumn from './FeatureColumn';
 import { updateFeatureInAirtable } from './airtableUtils.js';
 import saveFeatureToAirtable  from './airtableUtils.js';
+// import firebase from './firebaseConfig';
+// import Login from './Login';
+// import Logout from './Logout';
 
 
 const base = new Airtable({ apiKey: 'patXoKE30cfdzGyiY.cd7f900e821b989121d5ae3b697382588064a8330798745c8a406eb98e45c305' }).base('app86LcWij0hDTXST');
@@ -49,6 +54,8 @@ const fetchFeaturesFromAirtable = (filterFormula) => {
 };
 
 function App() {
+  const [user, setUser] = useState(null);
+
   const [inProgressFeatures, setInProgressFeatures] = useState([]);
   const [comingNextFeatures, setComingNextFeatures] = useState([]);
   const [completedFeatures, setCompletedFeatures] = useState([]);
@@ -58,6 +65,13 @@ function App() {
   const [showNewFeatureModal, setShowNewFeatureModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // useEffect(() => {
+  //   const unsubscribe = firebase.auth().onAuthStateChanged(user => {
+  //     setUser(user);
+  //   });
+
+  //   return () => unsubscribe();
+  // }, []);
 
   const handleDrop = (featureId, newStatus) => {
     const updatedFeatures = features.map((feature) => {
@@ -110,13 +124,17 @@ function App() {
     <DndProvider backend={HTML5Backend}>
 
     <div className="App">
+      
+      
       <HeroSection />
+
       <center>
         <button onClick={() => setIsModalOpen(true)}>Add New Feature</button>
       </center>
       <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
         <NewFeature onSave={handleSaveFeature} onClose={() => setIsModalOpen(false)} />
       </Modal>
+
       <EpicProgress />
       <div className="columns-container">
         {['Coming Next', 'In Progress', 'Completed'].map((status) => (

@@ -185,9 +185,13 @@ input[type="range"] {
 }
 
 .columns-container {
+  height: 100vh; /* or 100% if its parent has a defined height */
+
   display: flex;
   justify-content: space-between;
   width: 100%;
+  /* flex-direction: column; */
+
 }
 
 .status-column {
