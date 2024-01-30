@@ -1,24 +1,47 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
-import TopBar from './TopBar';
-
-import HeroSection from './Hero';
-import EpicProgress from './EpicProgress';
-import NewFeature from './NewFeature';
+import { BrowserRouter, Route, Routes, NavLink as RouterNavLink } from 'react-router-dom';
 import Airtable from 'airtable';
-import Modal from './Modal';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
-import FeatureColumn from './FeatureColumn';
-import { updateFeatureInAirtable } from './airtableUtils.js';
-import saveFeatureToAirtable  from './airtableUtils.js';
-// import firebase from './firebaseConfig';
-// import Login from './Login';
-// import Logout from './Logout';
+import LandingPage from './LandingPage';
+import MilestonePage from './MilestonePage';
+import PricingPage from './PricingPage';
+import RoadmapPage from './RoadmapPage';
+import styled from 'styled-components';
+import { updateFeatureInAirtable, saveFeatureToAirtable } from './airtableUtils';
 
+const TopBarContainer = styled.div`
+  width: 100%;
+  background-color: black;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 2%;  // 2% horizontal padding for margins on both sides
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+`;
 
-const base = new Airtable({ apiKey: 'patXoKE30cfdzGyiY.cd7f900e821b989121d5ae3b697382588064a8330798745c8a406eb98e45c305' }).base('app86LcWij0hDTXST');
-// /tblLVbc6orZBh42y3/viwcWZEy7T86jljyr
+const NavContainer = styled.div`
+  display: flex;
+  align-items: center;
+  margin-right: 100px; // Space between links and login button
+  justify-content: flex-end;  // Align items to the right
+  flex-grow: 1;  // Allow it to take up all available space
+`;
+
+const StyledNavLink = styled(RouterNavLink)`
+  margin-left: 20px;  // Space between links
+  color: white;
+  text-decoration: none;
+
+  &.active {  // Style for the active link
+    font-weight: bold;
+  }
+`;
+
+const base = new Airtable({ apiKey: process.env.ROADMAP_APP_AIRTABLE_KEY }).base('app86LcWij0hDTXST');
 
 function filterInProgress() {
   return "{Status} = 'In Progress'";
@@ -53,8 +76,12 @@ const fetchFeaturesFromAirtable = (filterFormula) => {
   });
 };
 
+const config = {
+  target: "svg"
+};
+
 function App() {
-  const [user, setUser] = useState(null);
+  // const [user, setUser] = useState(null);
 
   const [inProgressFeatures, setInProgressFeatures] = useState([]);
   const [comingNextFeatures, setComingNextFeatures] = useState([]);
@@ -64,38 +91,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [showNewFeatureModal, setShowNewFeatureModal] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  // useEffect(() => {
-  //   const unsubscribe = firebase.auth().onAuthStateChanged(user => {
-  //     setUser(user);
-  //   });
-
-  //   return () => unsubscribe();
-  // }, []);
-
-  const handleDrop = (featureId, newStatus) => {
-    const updatedFeatures = features.map((feature) => {
-      if (feature.id === featureId) {
-        return { ...feature, status: newStatus };
-      }
-      return feature;
-    });
-    setFeatures(updatedFeatures);
-
-    // Update Airtable here. If there's an error, show the snackbar and retry.
-    updateFeatureInAirtable(featureId, newStatus)
-  };
-
-  const handleSaveFeature = async (feature) => {
-    try {
-      await saveFeatureToAirtable(feature);
-      alert('Feature saved successfully!');
-      setIsModalOpen(false); // Close the modal after successful save
-
-    } catch (error) {
-      alert('Error saving feature: ' + error.message);
-    }
-  };
 
   useEffect(() => {
     Promise.all([
@@ -121,34 +116,26 @@ function App() {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <BrowserRouter>
+    <TopBarContainer>
+      <nav>
+      <NavContainer>
+          <StyledNavLink to="/">Home</StyledNavLink>
+          <StyledNavLink to="/pricing">Pricing</StyledNavLink>
+          <StyledNavLink to="/roadmap">Roadmap</StyledNavLink>
+          <StyledNavLink to="/milestones">Milestones</StyledNavLink>
 
-    <div className="App">
-      
-      
-      <HeroSection />
+      </NavContainer>
+      </nav>
+    </TopBarContainer>
 
-      <center>
-        <button onClick={() => setIsModalOpen(true)}>Add New Feature</button>
-      </center>
-      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
-        <NewFeature onSave={handleSaveFeature} onClose={() => setIsModalOpen(false)} />
-      </Modal>
-
-      <EpicProgress />
-      <div className="columns-container">
-        {['Coming Next', 'In Progress', 'Completed'].map((status) => (
-          <FeatureColumn 
-            key={status} 
-            status={status} 
-            features={features.filter(feature => feature.status === status)} 
-            onDrop={handleDrop} 
-          />
-        ))}
-      </div>
-    </div>
-
-    </DndProvider>
+      <Routes>
+        <Route path="/" element={<LandingPage/>} />
+        <Route path="/pricing" element={<PricingPage/>} />
+        <Route path="/roadmap" element={<RoadmapPage/>} />
+        <Route path="/milestones" element={<MilestonePage/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
