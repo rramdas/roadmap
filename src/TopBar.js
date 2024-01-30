@@ -1,5 +1,7 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import styled , {keyframes} from 'styled-components';
+
 
 const TopBarContainer = styled.div`
   width: 100%;
@@ -71,10 +73,12 @@ export default function TopBar({ message }) {
       <TopBarContainer>
         <span>{message}</span>  {/* Marketing message on the left */}
         <div>
-          <LoginLink href="/login">Sign In</LoginLink>  {/* Login link */}
-          <SignupButton onClick={() => { /* Handle navigation or modal popup for signup */ }}>
-            Pricing & Signup
-          </SignupButton>  {/* Pricing button */}
+
+          <Link href="/">Home</Link>
+          <LoginLink href="/login">Login</LoginLink>  {/* Login link */}
+          <Link href="/roadmap">Roadmap</Link>
+          <Link to="/pricing">Pricing</Link>
+
         </div>
       </TopBarContainer>
     );

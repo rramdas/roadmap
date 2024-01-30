@@ -5,7 +5,7 @@ import { useDrag } from 'react-dnd';
 const Card = styled.div`
   width: 90%;
   max-width: 300px;
-  margin: 0 auto;
+  margin-bottom: 30px;
   background-color: #1e1e1e;
   padding: 20px;
   border-radius: 10px;

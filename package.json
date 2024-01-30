@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@observablehq/runtime": "^5.9.1",
     "@octokit/rest": "^20.0.1",
     "airtable": "^0.12.1",
+    "d3": "^5.10.0",
+    "d3-drag": "^3.0.0",
     "dompurify": "^3.0.5",
     "font-awesome": "^4.7.0",
     "octokit": "^3.1.0",
@@ -12,6 +15,7 @@
     "react-dnd": "^16.0.1",
     "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
+    "react-router-dom": "^6.15.0",
     "react-scripts": "5.0.1",
     "styled-components": "^6.0.7",
     "web-vitals": "^2.1.4"
@@ -50,9 +54,9 @@
     "@testing-library/user-event": "^14.4.3",
     "babel-jest": "^29.6.2"
   },
-  "jest": { 
-    "transformIgnorePatterns": 
-      [ "/node_modules/(?!react-dnd|core-dnd|@react-dnd|dnd-core|react-dnd-html5-backend)" ] 
+  "jest": {
+    "transformIgnorePatterns": [
+      "/node_modules/(?!react-dnd|core-dnd|@react-dnd|dnd-core|react-dnd-html5-backend)"
+    ]
   }
-
 }

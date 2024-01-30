@@ -1,5 +1,4 @@
 import React from 'react';
-import { useState } from 'react';
 import { useDrop } from 'react-dnd';
 import FeatureCard from './FeatureCard';
 import styled from 'styled-components';
@@ -8,7 +7,7 @@ import styled from 'styled-components';
 const ColumnContainer = styled.div`
   flex: 1;
   background-color: #111;  // Almost black
-  background-color: ${props => props.isOver ? '#000370' : 'almostBlack'};
+  background-color: ${props => props.isOver ? 'green' : 'almostBlack'};
   padding: 20px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
   transition: transform 0.3s;
